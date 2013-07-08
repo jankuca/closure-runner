@@ -1,0 +1,11 @@
+{
+  "args.v": "boolean",
+
+  "tasks.deps": "{runner_dirname}/tasks/deps.js",
+  "tasks.sources_": "{runner_dirname}/tasks/sources.js",
+  "tasks.scopify_": "{runner_dirname}/tasks/scopify.js",
+  "tasks.compile": "{runner_dirname}/tasks/compile.js",
+  "default-task": "compile",
+
+  "closure-compiler": "{runner_dirname}/closure-compiler"
+}

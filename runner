@@ -1,0 +1,15 @@
+#!/usr/local/bin/node
+
+var fs = require('fs');
+var path = require('path');
+
+var project_dirname = process.env['PWD'];
+var local_runner = path.join(project_dirname, 'node_modules', 'closure-runner');
+
+var runner_module = 'closure-runner';
+if (fs.existsSync(local_runner)) {
+  runner_module = local_runner;
+}
+
+var ClosureRunner = require(runner_module);
+ClosureRunner.main();
