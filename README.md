@@ -61,6 +61,18 @@ The configuration above the minimum which you need to provide.
 - `closure-library` – the path to Google Closure Library
 - `tasks.*`:`./tasks/*.js` – custom task definition (see below)
 
+## Provided Tasks
+
+- `compile` - compiles JavaScript code (files returned by the `scopify` task)
+
+### Provided Shadow Tasks
+
+*Shadow tasks* are tasks that can only be run as sub-tasks.
+
+- `get-closure-compiler` – returns a function with the signature of `compile(flags: Object.<string, string|Array.<string>>, callback: function(err))
+- `sources` – lists all JavaScript files that would get compilation; returns a list of files
+- `scopify` – wraps all JavaScript files in a `goog.scope` wrapper to allow CommonJS-like aliasing; returns a list of files
+
 ## Custom Tasks
 
 The project can provide its own tasks that can be run via Closure Runner. A task is a node.js module that exports a function.
