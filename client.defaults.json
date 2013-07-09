@@ -4,6 +4,7 @@
   "tasks.deps": "{runner_dirname}/tasks/deps.js",
   "tasks.sources_": "{runner_dirname}/tasks/sources.js",
   "tasks.scopify_": "{runner_dirname}/tasks/scopify.js",
+  "tasks.get-closure-compiler_": "{runner_dirname}/tasks/get-closure-compiler.js",
   "tasks.compile": "{runner_dirname}/tasks/compile.js",
   "default-task": "compile",
 
