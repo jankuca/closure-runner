@@ -100,3 +100,4 @@ Each task is passed a `Runner` instance as the first argument. You will want to 
 - `Runner#getRoots(): string` – returns the paths in which to look for JavaScript files of the application
 - `Runner#runTask(task_id: string, callback: function(err, …))` – runs a task as a sub-task
     - The arguments passed to the callback function of the sub-task are passed to the provided callback function. The provided callback function is basically passed to the sub-task as the last argument.
+- `Runner#log(chunk: string)` – writes to the stderr stream

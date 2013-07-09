@@ -102,7 +102,11 @@ module.exports = function (runner, args, callback) {
         );
 
         if (log) {
-          runner.stderr.write(log + '\n\n');
+          runner.log(log + '\n\n');
+        }
+
+        if (args['v']) {
+          runner.log(report[0] + '\n');
         }
 
         if (Number(report[1]) > 0) {
