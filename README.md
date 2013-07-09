@@ -69,7 +69,7 @@ The configuration above the minimum which you need to provide.
 
 *Shadow tasks* are tasks that can only be run as sub-tasks.
 
-- `get-closure-compiler` – returns a function with the signature of `compile(flags: Object.<string, string|Array.<string>>, callback: function(err))
+- `get-closure-compiler` – returns a function with the signature of `compile(flags: Object.<string, string|Array.<string>>, callback: function(err))`
 - `sources` – lists all JavaScript files that would get compilation; returns a list of files
 - `scopify` – wraps all JavaScript files in a `goog.scope` wrapper to allow CommonJS-like aliasing; returns a list of files
 
