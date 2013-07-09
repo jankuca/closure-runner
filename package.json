@@ -1,8 +1,12 @@
 {
   "name": "closure-runner",
-  "version": "0.1.0",
+  "version": "0.1.1",
 
   "author": "Jan Kuča <jan@jankuca.com> (http://jankuca.com)",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jankuca/closure-runner.git"
+  },
 
   "main": "./main.js",
   "bin": {
