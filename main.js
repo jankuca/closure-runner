@@ -24,13 +24,21 @@ function main(callback) {
     runner.setClosureLibraryDirname(env.get('closure-library'));
     runner.setTasks(env.getTasks());
 
-    runner.runTask(env.getMainTaskId(), callback);
-  }, exit);
+    runner.runMainTask(env.getMainTaskId(), callback);
+  }, function (err) {
+    if (err) {
+      if (err.message.indexOf('\033[') !== -1) {
+        stderr.write(err.message + '\n');
+      } else {
+        stderr.write('\033[0;31m' + err.message + '\033[0m\n');
+      }
+    }
+    callback(err);
+  });
 }
 
 
 function exit(err) {
-  process.stderr.write('\n');
   if (err) {
     process.exit(1);
   }
