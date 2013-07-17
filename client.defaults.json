@@ -5,6 +5,7 @@
   "tasks.get-closure-templates_": "{runner_dirname}/tasks/get-closure-templates.js",
   "tasks.soy": "{runner_dirname}/tasks/soy.js",
   "tasks.sources_": "{runner_dirname}/tasks/sources.js",
+  "tasks.get-closure-depswriter_": "{runner_dirname}/tasks/get-closure-depswriter.js",
   "tasks.scopify_": "{runner_dirname}/tasks/scopify.js",
   "tasks.get-closure-compiler_": "{runner_dirname}/tasks/get-closure-compiler.js",
   "tasks.compile": "{runner_dirname}/tasks/compile.js",

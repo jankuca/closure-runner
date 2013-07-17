@@ -27,24 +27,16 @@ module.exports = function (runner, args, callback) {
   );
 
   async.waterfall([
-    function (callback) {
-      var command = closure_dirname;
-      command += '/closure/bin/build/depswriter.py';
+    runner.runTask.bind(runner, 'get-closure-depswriter'),
 
-      var command_args = [];
-      roots_with_prefixes = roots.forEach(function (root) {
-        command_args.push('--root_with_prefix=' + root + ' ' + root);
+    function (depswriter, callback) {
+      var flags = [];
+
+      flags['root_with_prefix'] = roots.map(function (root) {
+        return root + ' ' + root;
       });
 
-      child(command, command_args, function (err, result) {
-        if (err) {
-          callback(err, null);
-        } else if (result.code !== 0) {
-          callback(new Error(result.stderr), null);
-        } else {
-          callback(null, result.stdout);
-        }
-      });
+      depswriter(flags, callback);
     },
 
     function (depswriter_result, callback) {
