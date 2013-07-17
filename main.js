@@ -19,6 +19,7 @@ function main(callback) {
     var args = env.getArguments();
     var runner = new Runner(app, args, stderr);
 
+    runner.setConfig(env.getConfig());
     runner.setProjectDirname(env.getProjectDirname());
     runner.setClosureCompilerDirname(env.get('closure-compiler'));
     runner.setClosureLibraryDirname(env.get('closure-library'));
