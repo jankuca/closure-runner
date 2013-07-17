@@ -17,6 +17,7 @@
     "async": "*",
     "mkdirp": "*",
     "optimist": "*",
+    "rimraf": "*",
     "shelljs": "*"
   }
 }

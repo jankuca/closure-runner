@@ -10,9 +10,8 @@ module.exports = function (runner, args, callback) {
   var compile;
 
   async.waterfall([
-    function (callback) {
-      runner.runTask('get-closure-compiler', callback);
-    },
+    runner.runTask.bind(runner, 'soy'),
+    runner.runTask.bind(runner, 'get-closure-compiler'),
 
     function (compile_, callback) {
       compile = compile_;

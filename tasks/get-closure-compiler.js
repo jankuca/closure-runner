@@ -76,7 +76,7 @@ module.exports = function (runner, args, callback) {
       }
     });
   });
-}
+};
 
 
 function child(command, args, callback) {

@@ -2,6 +2,8 @@
   "args.v": "boolean",
 
   "tasks.deps": "{runner_dirname}/tasks/deps.js",
+  "tasks.get-closure-templates_": "{runner_dirname}/tasks/get-closure-templates.js",
+  "tasks.soy": "{runner_dirname}/tasks/soy.js",
   "tasks.sources_": "{runner_dirname}/tasks/sources.js",
   "tasks.scopify_": "{runner_dirname}/tasks/scopify.js",
   "tasks.get-closure-compiler_": "{runner_dirname}/tasks/get-closure-compiler.js",
