@@ -8,7 +8,7 @@ module.exports = function (runner, args, callback) {
   var be_verbose = args['v'];
 
   var app_dirname = runner.getProjectDirname();
-  var closure_compiler_dirname = runner.getClosureCompilerDirname();
+  var closure_compiler_dirname = runner.getConfigValue('closure-compiler');
 
   var local_closure_path = path.join(app_dirname, 'node_modules/.bin/closure');
   var global_closure = shell.which('closure');

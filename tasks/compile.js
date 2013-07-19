@@ -21,7 +21,7 @@ module.exports = function (runner, args, callback) {
   async.waterfall([
     function (callback) {
       if (closure_template_dirname) {
-        runner.runTask.bind(runner, 'soy'),
+        runner.runTask('soy', callback);
       } else {
         callback(null);
       }
