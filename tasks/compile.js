@@ -40,9 +40,12 @@ module.exports = function (runner, args, callback) {
 
       flags['root_with_prefix'] = roots.map(function (root) {
         var temp_root = path.join(temp_dirname_rel, root);
-        var temp_root_rel = path.relative(app_dirname, temp_root);
+        var temp_root_rel = './' + path.relative(app_dirname, temp_root);
         return temp_root_rel + ' ' + temp_root_rel;
       });
+      flags['root_with_prefix'].push(
+        closure_library_dirname + ' ' + closure_library_dirname
+      );
 
       if (temp_deps_path) {
         depswriter(flags, callback);
