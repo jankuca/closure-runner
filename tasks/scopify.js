@@ -13,8 +13,14 @@ module.exports = function (runner, args, callback) {
     function (sources, callback) {
       var app_dirname = runner.getProjectDirname();
       var temp_dirname = runner.getTempDirname();
+      var closure_dirname = runner.getClosureLibraryDirname();
 
       async.map(sources, function (source, callback) {
+        var closure_relative_path = path.relative(closure_dirname, source);
+        if (!/^\.\./.test(closure_relative_path)) {
+          return callback(null, source);
+        }
+
         var app_relative_source_path = path.join(app_dirname);
         var source_path = path.join(app_dirname, source);
         var temp_source_path = path.join(temp_dirname, source);
