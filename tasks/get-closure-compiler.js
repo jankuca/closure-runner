@@ -55,10 +55,18 @@ module.exports = function (runner, args, callback) {
       var value = flags[key];
       if (Array.isArray(value)) {
         value.forEach(function (val) {
-          command_args.push('--' + key + '=' + val);
+          if (val === true) {
+            command_args.push('--' + key);
+          } else {
+            command_args.push('--' + key + '=' + val);
+          }
         });
       } else {
-        command_args.push('--' + key + '=' + value);
+        if (value === true) {
+          command_args.push('--' + key);
+        } else {
+          command_args.push('--' + key + '=' + value);
+        }
       }
     }
 

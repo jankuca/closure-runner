@@ -70,7 +70,9 @@ module.exports = function (runner, args, callback) {
     },
 
     function (callback) {
-      var flags = {};
+      var app_flags = runner.getAppConfigValue('closure-compiler.flags');
+      var flags = Object.create(app_flags);
+
       flags['compilation_level'] = 'ADVANCED_OPTIMIZATIONS';
       flags['warning_level'] = 'VERBOSE';
       flags['language_in'] = 'ECMASCRIPT5_STRICT';
