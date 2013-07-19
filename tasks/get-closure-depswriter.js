@@ -26,7 +26,7 @@ module.exports = function (runner, args, callback) {
     } catch (err) {
       return callback(
         new Error(
-          '\033[0;31mClosure Library DepsWriter\033[0m is not executable' +
+          '\033[0;31mClosure Library DepsWriter\033[0m is not executable ' +
           'and automatic chmod +x failed.'
         ),
         null
