@@ -58,6 +58,8 @@ module.exports = function (runner, args, callback) {
     child(command, command_args, function (err, result) {
       if (err) {
         callback(err, null);
+      } else if (result.stderr) {
+        callback(new Error(result.stderr), null);
       } else {
         callback(null, result.stdout);
       }
