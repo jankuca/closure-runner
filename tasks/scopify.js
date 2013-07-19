@@ -13,7 +13,7 @@ module.exports = function (runner, args, callback) {
     function (sources, callback) {
       var app_dirname = runner.getProjectDirname();
       var temp_dirname = runner.getTempDirname();
-      var closure_dirname = runner.getClosureLibraryDirname();
+      var closure_dirname = runner.getConfigValue('closure-library');
 
       async.map(sources, function (source, callback) {
         var closure_relative_path = path.relative(closure_dirname, source);
