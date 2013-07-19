@@ -4,13 +4,13 @@ var path = require('path');
 
 
 module.exports = function (runner, args, callback) {
+  var app_dirname = runner.getProjectDirname();
   var closure_library_dirname = runner.getConfigValue('closure-library');
   var closure_template_dirname = runner.getConfigValue('closure-templates');
-  var app_dirname = runner.getProjectDirname();
-  var output_path = runner.getOutputPath();
-  var source_map_path = runner.getSourceMapPath();
+  var output_path = runner.getAppConfigValue('output');
+  var source_map_path = runner.getAppConfigValue('output.source-map');
   var temp_deps_path = runner.getAppConfigValue('output.deps');
-  var roots = runner.getRoots();
+  var roots = runner.getAppConfigValue('roots');
 
   var temp_dirname = runner.getTempDirname();
   var temp_dirname_rel = path.relative(app_dirname, temp_dirname);
@@ -108,7 +108,7 @@ module.exports = function (runner, args, callback) {
       flags['js'].unshift(path.join(closure_library_dirname, '/closure/goog/deps.js'));
       flags['js'].unshift(path.join(closure_library_dirname, '/closure/goog/base.js'));
 
-      var externs = runner.getExterns();
+      var externs = runner.getAppConfigValue('externs');
       flags['externs'] = Object.keys(externs).map(function (extern_id) {
         return externs[extern_id];
       });

@@ -8,8 +8,8 @@ var path = require('path');
 module.exports = function (runner, args, callback) {
   var app_dirname = runner.getProjectDirname();
   var closure_dirname = runner.getConfigValue('closure-library');
-  var app_namespaces = runner.getAppNamespaces();
-  var roots = runner.getRoots();
+  var app_namespaces = runner.getAppConfigValue('namespaces');
+  var roots = runner.getAppConfigValue('roots');
 
   if (!closure_dirname) {
     return callback(new Error('Closure Library path not specified'), null);

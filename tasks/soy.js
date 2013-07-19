@@ -7,7 +7,7 @@ var rmrf = require('rimraf');
 module.exports = function (runner, args, callback) {
   var app_dirname = runner.getProjectDirname();
   var output_dirname = runner.getAppConfigValue('output.templates');
-  var roots = runner.getRoots();
+  var roots = runner.getAppConfigValue('roots');
 
   if (roots.length === 0) {
     return callback(new Error('No roots specified'), null);
