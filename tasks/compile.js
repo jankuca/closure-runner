@@ -55,6 +55,7 @@ module.exports = function (runner, args, callback) {
       flags['output_wrapper'] = '"' + flags['output_wrapper'] + '"';
 
       flags['js'] = sources.slice();
+      flags['js'].unshift(path.join(closure_library_dirname, '/closure/goog/deps.js'));
       flags['js'].unshift(path.join(closure_library_dirname, '/closure/goog/base.js'));
 
       compile(flags, callback);
