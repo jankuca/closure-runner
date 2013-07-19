@@ -53,23 +53,32 @@ The runner looks for a `client.json` file in the project root.
 The configuration above the minimum which you need to provide.
 
 - `app` – information about the application
-    - `output` – the JavaScript compilation output path
-    - `output.source-map` – the source map output path for debugging compiled code
-    - `namespaces` – the entry point namespaces for the application (a `goog.provide` symbol)
-    - `roots` – the paths to search for JavaScript files
+  - `output` – the JavaScript compilation output path
+  - `output.deps` – the dependency list file output path
+  - `output.source-map` – the source map output path for debugging compiled code
+  - `output.sources` – the directory into which to save scopified files
+  - `output.templates` – the directory into which to save compiled Soy templates
+  - `namespaces` – the entry point namespaces for the application (a `goog.provide` symbol)
+  - `roots` – the paths to search for JavaScript files
+  - `externs.*`:`./externs/*.js` – custom JS compilation extern files
 - `apps`:`[ app, app, … ]` – for multiple applications
 - `closure-library` – the path to Google Closure Library
+- `closure-templates` – the path to Google Closure Templates
 - `tasks.*`:`./tasks/*.js` – custom task definition (see below)
+- `externs.*`:`./externs/*.js` – custom JS compilation extern files for all apps
 
 ## Provided Tasks
 
 - `compile` - compiles JavaScript code (files returned by the `scopify` task)
+- `soy` - compiles Soy templates to JavaScript files
 
 ### Provided Shadow Tasks
 
 *Shadow tasks* are tasks that can only be run as sub-tasks.
 
 - `get-closure-compiler` – returns a function with the signature of `compile(flags: Object.<string, string|Array.<string>>, callback: function(err))`
+- `get-closure-templates` – returns a function with the signature of `compile(flags: Object.<string, string|Array.<string>>, callback: function(err))`
+- `get-closure-depswriter` – returns a function with the signature of `compile(flags: Object.<string, string|Array.<string>>, callback: function(err))`
 - `sources` – lists all JavaScript files that would get compilation; returns a list of files
 - `scopify` – wraps all JavaScript files in a `goog.scope` wrapper to allow CommonJS-like aliasing; returns a list of files
 
@@ -105,11 +114,17 @@ This would make the task invocable as `runner my-awesome-task`.
 
 Each task is passed a `Runner` instance as the first argument. You will want to use some of its methods in most cases.
 
-- `Runner#getProjectDirname(): string` – returns the root directory path of the project
+- `Runner#getConfigValue(): string` – returns a configuration value by key (or null if not present)
+- `Runner#getAppConfigValue(): string` – returns an application configuration value (app.*) by key (or null if not present)
+- `Runner#getProjectDirname(): string` – returns the absolute path to the root directory of the project
+- `Runner#getStackDirname(): string` – returns the Closure Runner directory path relative to the project
+- `Runner#getTempDirname(): string` – returns the temporary directory intro which intermediate source files get stored
 - `Runner#getOutputPath(): string` – returns the JavaScript compilation output path
 - `Runner#getSourceMapPath(): string` – returns the source map path
 - `Runner#getAppNamespaces(): Array.<string>` – returns a list of the entry point namespaces of the application
 - `Runner#getRoots(): string` – returns the paths in which to look for JavaScript files of the application
+- `Runner#getExterns(): string` – returns the extern paths for the application (relative to the project)
 - `Runner#runTask(task_id: string, callback: function(err, …))` – runs a task as a sub-task
-    - The arguments passed to the callback function of the sub-task are passed to the provided callback function. The provided callback function is basically passed to the sub-task as the last argument.
+  - The arguments passed to the callback function of the sub-task are passed to the provided callback function. The provided callback function is basically passed to the sub-task as the last argument.
+- `Runner#path(filename: string)` – converts a path to a project-relative one
 - `Runner#log(chunk: string)` – writes to the stderr stream
