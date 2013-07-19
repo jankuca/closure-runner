@@ -73,8 +73,10 @@ module.exports = function (runner, args, callback) {
 
 
 function fixRequires(code) {
-  code = code.replace(/^goog\.require\(['"].+?['"]\);/gm, '');
-  code = code.replace(/(\s)goog\.require\(['"](.+?)['"]\)/g, '$1$2');
+  code = code.replace(
+    /^var(\s.+?[\s=])goog\.require\(['"](.+?)['"]\)/gm,
+    'goog.require("$2"); var$1$2'
+  );
 
   return code;
 }
