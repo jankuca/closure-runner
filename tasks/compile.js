@@ -58,6 +58,11 @@ module.exports = function (runner, args, callback) {
       flags['js'].unshift(path.join(closure_library_dirname, '/closure/goog/deps.js'));
       flags['js'].unshift(path.join(closure_library_dirname, '/closure/goog/base.js'));
 
+      var externs = runner.getExterns();
+      flags['externs'] = Object.keys(externs).map(function (extern_id) {
+        return externs[extern_id];
+      });
+
       compile(flags, callback);
     },
 
