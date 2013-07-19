@@ -1,16 +1,25 @@
 var async = require('async');
+var fs = require('fs');
 var path = require('path');
 
 
 module.exports = function (runner, args, callback) {
   var closure_library_dirname = runner.getClosureLibraryDirname();
+  var app_dirname = runner.getProjectDirname();
   var output_path = runner.getOutputPath();
   var source_map_path = runner.getSourceMapPath();
+  var temp_deps_path = runner.getAppConfigValue('output.deps');
+  var roots = runner.getRoots();
+
+  var temp_dirname = runner.getTempDirname();
+  var temp_dirname_rel = path.relative(app_dirname, temp_dirname);
 
   var compile;
+  var sources;
 
   async.waterfall([
     runner.runTask.bind(runner, 'soy'),
+
     runner.runTask.bind(runner, 'get-closure-compiler'),
 
     function (compile_, callback) {
@@ -19,7 +28,38 @@ module.exports = function (runner, args, callback) {
       runner.runTask('scopify', callback);
     },
 
-    function (sources, callback) {
+    function (sources_, callback) {
+      sources = sources_;
+      callback(null);
+    },
+
+    runner.runTask.bind(runner, 'get-closure-depswriter'),
+
+    function (depswriter, callback) {
+      var flags = {};
+
+      flags['root_with_prefix'] = roots.map(function (root) {
+        var temp_root = path.join(temp_dirname_rel, root);
+        var temp_root_rel = path.relative(app_dirname, temp_root);
+        return temp_root_rel + ' ' + temp_root_rel;
+      });
+
+      if (temp_deps_path) {
+        depswriter(flags, callback);
+      } else {
+        callback(null, '');
+      }
+    },
+
+    function (depswriter_result, callback) {
+      if (temp_deps_path) {
+        fs.writeFile(temp_deps_path, depswriter_result, callback);
+      } else {
+        callback(null);
+      }
+    },
+
+    function (callback) {
       var flags = {};
       flags['compilation_level'] = 'ADVANCED_OPTIMIZATIONS';
       flags['warning_level'] = 'VERBOSE';
