@@ -72,6 +72,10 @@ module.exports = function (runner, args, callback) {
           /\s*(\d+)\serror\(s\),\s(\d+)\swarning\(s\)(?:,\s([\d.]+)%\styped)?\s*$/
         );
 
+        if (!report) {
+          return callback(new Error(log));
+        }
+
         log = log.replace(report[0], '');
 
         log = log.replace(
