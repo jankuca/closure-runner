@@ -21,6 +21,18 @@ module.exports = function (runner, args, callback) {
     );
   }
   if (!isExecutable(depswriter_filename)) {
+    try {
+      fs.chmodSync(depswriter_filename, '+x');
+    } catch (err) {
+      return callback(
+        new Error(
+          '\033[0;31mClosure Library DepsWriter\033[0m is not executable' +
+          'and automatic chmod +x failed.'
+        ),
+        null
+      );
+    }
+
     return callback(
       new Error('\033[0;31mClosure Library DepsWriter\033[0m is not executable'),
       null
