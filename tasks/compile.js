@@ -5,6 +5,7 @@ var path = require('path');
 
 module.exports = function (runner, args, callback) {
   var closure_library_dirname = runner.getClosureLibraryDirname();
+  var closure_template_dirname = runner.getConfigValue('closure-templates');
   var app_dirname = runner.getProjectDirname();
   var output_path = runner.getOutputPath();
   var source_map_path = runner.getSourceMapPath();
@@ -18,7 +19,13 @@ module.exports = function (runner, args, callback) {
   var sources;
 
   async.waterfall([
-    runner.runTask.bind(runner, 'soy'),
+    function (callback) {
+      if (closure_template_dirname) {
+        runner.runTask.bind(runner, 'soy'),
+      } else {
+        callback(null);
+      }
+    },
 
     runner.runTask.bind(runner, 'get-closure-compiler'),
 
