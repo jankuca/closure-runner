@@ -16,6 +16,8 @@ module.exports = function (runner, args, callback) {
   var temp_dirname = runner.getTempDirname();
   var temp_dirname_rel = path.relative(app_dirname, temp_dirname);
 
+  var scopify = (runner.getAppConfigValue('scopify') === true);
+
   var compile;
   var sources;
 
@@ -33,7 +35,11 @@ module.exports = function (runner, args, callback) {
     function (compile_, callback) {
       compile = compile_;
 
-      runner.runTask('scopify', callback);
+      if (scopify) {
+        runner.runTask('scopify', callback);
+      } else {
+        runner.runTask('sources', callback);
+      }
     },
 
     function (sources_, callback) {
@@ -46,19 +52,34 @@ module.exports = function (runner, args, callback) {
     function (depswriter, callback) {
       var flags = {};
 
-      flags['root_with_prefix'] = roots.map(function (root) {
-        var temp_root = path.join(temp_dirname_rel, root);
-        var temp_root_rel = './' + path.relative(app_dirname, temp_root);
+      var temp_roots = roots;
+      if (scopify) {
+        temp_roots = roots.map(function (root) {
+          var temp_root = path.join(temp_dirname_rel, root);
+          var temp_root_rel = './' + path.relative(app_dirname, temp_root);
+          return temp_root_rel;
+        });
+      }
 
-        if (!fs.existsSync(temp_root_rel)) {
-          mkdirp.sync(temp_root_rel);
+      if (!temp_roots.every(function (root) {
+        var root_closure_rel = path.relative(closure_library_dirname, root);
+        return (root_closure_rel.substr(0, 2) === '..');
+      })) {
+        temp_roots.push(closure_library_dirname);
+      }
+
+      flags['root_with_prefix'] = temp_roots.map(function (root) {
+        var root_deps_rel = path.relative(
+          './' + path.join(closure_library_dirname, '/closure/goog'),
+          root
+        );
+
+        if (!fs.existsSync(root)) {
+          mkdirp.sync(root);
         }
 
-        return temp_root_rel + ' ' + temp_root_rel;
+        return root + ' ' + root_deps_rel;
       });
-      flags['root_with_prefix'].push(
-        closure_library_dirname + ' ' + closure_library_dirname
-      );
 
       if (temp_deps_path) {
         depswriter(flags, callback);
