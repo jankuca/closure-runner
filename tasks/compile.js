@@ -1,5 +1,6 @@
 var async = require('async');
 var fs = require('fs');
+var mkdirp = require('mkdirp');
 var path = require('path');
 
 
@@ -48,6 +49,11 @@ module.exports = function (runner, args, callback) {
       flags['root_with_prefix'] = roots.map(function (root) {
         var temp_root = path.join(temp_dirname_rel, root);
         var temp_root_rel = './' + path.relative(app_dirname, temp_root);
+
+        if (!fs.existsSync(temp_root_rel)) {
+          mkdirp.sync(temp_root_rel);
+        }
+
         return temp_root_rel + ' ' + temp_root_rel;
       });
       flags['root_with_prefix'].push(
