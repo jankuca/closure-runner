@@ -70,6 +70,7 @@ The configuration above the minimum which you need to provide.
 ## Provided Tasks
 
 - `compile` - compiles JavaScript code (files returned by the `scopify` task)
+- `deps` – lists dependencies and writes them to the "output.deps" app configuration key
 - `soy` - compiles Soy templates to JavaScript files
 
 ### Provided Shadow Tasks
