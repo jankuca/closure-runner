@@ -15,7 +15,7 @@ function main(callback) {
   env.addConfig(path.join(env.getProjectDirname(), './client.json'));
   env.setArguments(process.argv.slice(2));
 
-  async.map(env.getApps(), function (app, callback) {
+  async.eachSeries(env.getApps(), function (app, callback) {
     var args = env.getArguments();
     var runner = new Runner(app, args, stderr);
 
