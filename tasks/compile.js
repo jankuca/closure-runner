@@ -140,6 +140,19 @@ module.exports = function (runner, args, callback) {
       } else {
         callback(null);
       }
+    },
+
+    // source map fix
+    // --------------
+    // The paths put in the map by the compiler are relative to the project
+    //   root directory while for the map to be useful, the paths have to be
+    //   relative to the source map itself.
+    function (callback) {
+      if (source_map_path) {
+        runner.runTask('fix-source-map', callback);
+      } else {
+        callback(null);
+      }
     }
   ], callback);
 };

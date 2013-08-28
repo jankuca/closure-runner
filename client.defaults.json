@@ -9,6 +9,8 @@
   "tasks.scopify_": "{runner_dirname}/tasks/scopify.js",
   "tasks.get-closure-compiler_": "{runner_dirname}/tasks/get-closure-compiler.js",
   "tasks.compile": "{runner_dirname}/tasks/compile.js",
+  "tasks.fix-source-map_": "{runner_dirname}/tasks/fix-source-map.js",
+
   "default-task": "compile",
 
   "closure-compiler": "{runner_dirname}/closure-compiler"
