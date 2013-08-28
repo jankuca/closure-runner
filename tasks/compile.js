@@ -5,7 +5,6 @@ var path = require('path');
 
 
 module.exports = function (runner, args, callback) {
-  var app_dirname = runner.getProjectDirname();
   var closure_library_dirname = runner.getConfigValue('closure-library');
   var closure_template_dirname = runner.getConfigValue('closure-templates');
   var output_path = runner.getAppConfigValue('output');
