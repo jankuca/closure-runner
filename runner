@@ -12,4 +12,9 @@ if (fs.existsSync(local_runner)) {
 }
 
 var ClosureRunner = require(runner_module);
-ClosureRunner.main();
+ClosureRunner.run(function (err) {
+  if (err) {
+    console.log(err.stack || err.message || err);
+    process.exit(1);
+  }
+});
