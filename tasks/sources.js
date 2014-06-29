@@ -1,8 +1,8 @@
 var async = require('async');
 var fs = require('fs');
-var child_process = require('child_process');
 var optimist = require('optimist');
 var path = require('path');
+var spawn = require('win-spawn');
 
 
 module.exports = function (runner, args, callback) {
@@ -117,7 +117,7 @@ function child(command, args, callback) {
     code: null
   };
 
-  var proc = child_process.spawn(command, args);
+  var proc = spawn(command, args);
 
   proc.stdout.on('data', function (chunk) {
     result.stdout += chunk;

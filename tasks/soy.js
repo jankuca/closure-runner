@@ -1,7 +1,7 @@
 var async = require('async');
-var child_process = require('child_process');
 var path = require('path');
 var rmrf = require('rimraf');
+var spawn = require('win-spawn');
 
 
 module.exports = function (runner, args, callback) {
