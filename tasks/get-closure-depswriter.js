@@ -1,4 +1,4 @@
-var child_process = require('child_process');
+var spawn = osType === 'Windows_NT' ? require('win-spawn') : require('child_process').spawn;
 var fs = require('fs');
 var path = require('path');
 
@@ -75,7 +75,7 @@ function child(command, args, callback) {
     code: null
   };
 
-  var proc = child_process.spawn(command, args);
+  var proc = spawn(command, args);
 
   proc.stdout.on('data', function (chunk) {
     result.stdout += chunk;
