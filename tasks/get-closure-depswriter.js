@@ -1,3 +1,4 @@
+var osType = require('os').type();
 var spawn = osType === 'Windows_NT' ? require('win-spawn') : require('child_process').spawn;
 var fs = require('fs');
 var path = require('path');
