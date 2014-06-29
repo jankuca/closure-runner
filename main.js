@@ -34,10 +34,14 @@ function main(callback) {
     runner.setProjectDirname(project_dirname);
     runner.setTasks(env.getTasks());
 
-    runner.runTask('deps', function () {
-      require(path.join(project_dirname, runner.getAppConfigValue('output.deps')));
+    if (env.get('use-goog-in-tasks')) {
+      runner.runTask('deps', function () {
+        require(path.join(project_dirname, runner.getAppConfigValue('output.deps')));
+        runner.runMainTask(env.getMainTaskId(), callback);
+      });
+    } else {
       runner.runMainTask(env.getMainTaskId(), callback);
-    });
+    }
   }, function (err) {
     if (err) {
       if (err.message.indexOf('\033[') !== -1) {
