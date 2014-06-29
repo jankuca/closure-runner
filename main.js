@@ -8,6 +8,10 @@ var ProcessOutput = require('./lib/process-output');
 
 
 function main(callback) {
+  if (!process.env['PWD']) {
+    process.env['PWD'] = process.cwd();
+  }
+
   var env = new Environment(process.env);
   var stderr = new ProcessOutput(process.stderr);
 
