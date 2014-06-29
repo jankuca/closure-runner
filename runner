@@ -3,8 +3,7 @@
 var fs = require('fs');
 var path = require('path');
 
-if(!process.env["PWD"])
-  process.env["PWD"] = process.cwd();
+process.env["PWD"] = process.cwd();
 
 var project_dirname = process.env['PWD'];
 var local_runner = path.join(project_dirname, 'node_modules', 'closure-runner');
