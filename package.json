@@ -18,6 +18,7 @@
     "mkdirp": "*",
     "optimist": "*",
     "rimraf": "*",
-    "shelljs": "*"
+    "shelljs": "*",
+    "win-spawn": "*"
   }
 }
