@@ -45,7 +45,13 @@ module.exports = function (runner, args, callback) {
       lines.forEach(function (line) {
         if (!/^goog\.addDependency\(/.test(line)) return;
 
-        line = line.replace(/^.*?\(/, '').replace(/\).*?$/, '');
+        var matches = line.match(/\((.*?)\)/);
+
+        if (matches) {
+          line = matches[1];          
+        } else return;
+
+
         var values = eval('[' + line + ']');
 
         values[1].forEach(function (provided_ns) {

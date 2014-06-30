@@ -96,7 +96,7 @@ module.exports = function (runner, args, callback) {
     function (log, callback) {
       if (log) {
         var report = log.match(
-          /\s*(\d+)\serror\(s\),\s(\d+)\swarning\(s\)(?:,\s([\d.]+)%\styped)?\s*$/
+          /\s*(\d+)\serror\(s\),\s(\d+)\swarning\(s\)(?:,\s(.+)%\styped)?\s*$/
         );
 
         if (!report) {
