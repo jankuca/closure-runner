@@ -39,11 +39,14 @@ function main(callback) {
     runner.setTasks(env.getTasks());
 
     if (env.get('use-goog-in-tasks')) {
+      if (!runner.getAppConfigValue('output.deps')) {
+        throw new Error('output.deps is required for use-goog-in-tasks');
+      }
       runner.runTask('deps', function () {
         require(path.join(project_dirname, runner.getAppConfigValue('output.deps')));
         runner.runMainTask(env.getMainTaskId(), callback);
       });
-    } else {
+    } else {
       runner.runMainTask(env.getMainTaskId(), callback);
     }
   }, function (err) {
