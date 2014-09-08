@@ -106,7 +106,7 @@ module.exports = function (runner, args, callback) {
         log = log.replace(report[0], '');
 
         log = log.replace(
-          /(^|\n)([\w\/._-]+):(\d+):\s(ERROR|WARNING)\s-\s(.+?)\n([^\n]+)\n(\s*?\^)/g,
+          /(^|\n)([\w\/._-]+):(\d+):\s(ERROR|WARNING)\s-\s(.+?)\n([\s\S]+?)\n(\s*?\^)/g,
           function (match, pre_white, filename, line_no, level, message, code, arrow) {
             var dirname = path.dirname(filename);
             var basename = path.basename(filename);
